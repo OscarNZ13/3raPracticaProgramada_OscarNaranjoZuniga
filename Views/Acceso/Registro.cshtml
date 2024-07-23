@@ -1,0 +1,57 @@
+﻿@model _3raPracticaProgramada_OscarNaranjoZuniga.Models.Usuario
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            <div class="row mt-5 justify-content-center">
+                <div class="col-sm-4"
+                    <div class="card">
+                        <div class="card-header">
+                            Registrate
+                        </div>
+                        <div class="card-body">
+
+                        <form asp-controller="Acceso" asp-action="Registro" method="post">
+                            <input class="form-control mb-3" type="text" placeholder="Nombre Completo" required asp-for="NombreUsuario"/>
+                                @Html.ValidationMessageFor(model => model.NombreUsuario, "", new { @class = "text-danger" })
+
+                            <input class="form-control mb-3" type="text" placeholder="Email" required asp-for="Email"/>
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                            <input class="form-control mb-3" type="password" placeholder="Contraseña" required asp-for="Contrasena"/>
+                                @Html.ValidationMessageFor(model => model.Contrasena, "", new { @class = "text-danger" })
+
+                            <div class="d-grid gap-2 mb-3">
+                                <button class="btn btn-primary" type="submit">Registrate</button>
+                            </div>
+
+                            @if (ViewData["Mensaje"]!=null){
+                                <div class="alert alert-danger" role="alert">
+                                    @ViewData["Mensaje"]
+                                </div>
+                            }
+
+                            ¿Ya estas registrado?<a asp-controller="Acceso" asp-action="Login">Iniciar Sesion</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
