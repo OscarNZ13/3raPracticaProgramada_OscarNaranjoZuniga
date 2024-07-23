@@ -1,0 +1,47 @@
+﻿@model IEnumerable<_3raPracticaProgramada_OscarNaranjoZuniga.Models.Comentarios>
+﻿@using System.Security.Claims;
+
+@{
+    Layout = "_Layout";
+    var currentUserId = User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h5>
+        Cantidad de comentarios: @ViewBag.ComentariosCantidad
+    </h5>
+    <btn class="btn btn-primary">
+        <a style="color:white" asp-action="Create">Create New</a>
+    </btn>
+
+    @foreach (var item in Model)
+    {
+
+        <div class="card text-white bg-dark mb-3">
+            <div class="card-header">
+                @Html.DisplayFor(modelItem => item.Usuario.Email)
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Comentario)</p>
+                    <footer style="color:white" class="blockquote-footer">
+                        @Html.DisplayFor(modelItem => item.FechaCreacion)
+                    </footer>
+                </blockquote>
+                @if (item.Usuario.UsuarioId.ToString() == currentUserId)
+                {
+                    <a asp-action="Delete" asp-route-id="@item.ComentarioId">Delete</a>
+                }
+            </div>
+        </div>
+    }
+
+</body>
+</html>
